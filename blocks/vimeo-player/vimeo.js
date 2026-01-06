@@ -79,7 +79,7 @@ export default function decorate(block) {
 
   if (!id) {
     block.innerHTML = `
-      <div class="vimeo__error">
+      <div class="vimeo-error">
         <p><strong>Vimeo block:</strong> Could not detect a Vimeo video id from:</p>
         <p><code>${effectiveUrl}</code></p>
       </div>`;
@@ -89,10 +89,10 @@ export default function decorate(block) {
   const src = buildEmbedSrc({ id, h });
 
   const wrapper = document.createElement('div');
-  wrapper.className = 'vimeo__frame';
+  wrapper.className = 'vimeo-frame';
 
   const iframe = document.createElement('iframe');
-  iframe.className = 'vimeo__iframe';
+  iframe.className = 'vimeo-iframe';
   iframe.src = src;
   iframe.loading = 'lazy';
   iframe.title = title || 'Vimeo video player';
