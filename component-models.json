@@ -216,7 +216,7 @@
     ]
   },
   {
-    "id": "vimeo",
+    "id": "vimeo-player",
     "fields": [
       {
         "component": "text",

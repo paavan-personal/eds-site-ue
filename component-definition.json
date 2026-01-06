@@ -159,7 +159,7 @@
         },
         {
           "title": "Vimeo",
-          "id": "vimeo",
+          "id": "vimeo-player",
           "plugins": {
             "xwalk": {
               "page": {
