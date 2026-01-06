@@ -30,7 +30,7 @@ function getUEFields(block) {
 
   return {
     videoUrl: authoredUrl || '',
-    title: authoredTitle || ''
+    title: authoredTitle || '',
   };
 }
 
