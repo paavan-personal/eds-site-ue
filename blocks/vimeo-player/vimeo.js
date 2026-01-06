@@ -1,4 +1,3 @@
-
 /**
  * Vimeo block (EDS + Universal Editor)
  * - Uses UE fields: videoUrl, title (optional)
@@ -25,15 +24,13 @@ function getUEFields(block) {
   const urlField = fieldWrappers[0] || null;
   const titleField = fieldWrappers[1] || null;
 
-  const authoredUrl =
-    firstLinkHref(urlField) ||
-    textFrom(urlField);
+  const authoredUrl = firstLinkHref(urlField) || textFrom(urlField);
 
   const authoredTitle = textFrom(titleField);
 
   return {
     videoUrl: authoredUrl || '',
-    title: authoredTitle || '',
+    title: authoredTitle || ''
   };
 }
 
