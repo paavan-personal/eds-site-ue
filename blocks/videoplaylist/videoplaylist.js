@@ -1,4 +1,4 @@
-import decorateVideo from '..video/video.js'; // Import existing Video block logic
+import decorateVideo from '../video/video'; // Import existing Video block logic
 
 export default async function decorate(block) {
   // Universal Editor injects the model into block.model
