@@ -216,7 +216,30 @@
     ]
   },
   {
-    "id": "vimeo-player",
+    "id": "video",
+    "fields": [
+      {
+        "component": "text",
+        "name": "videoUrl",
+        "label": "Video URL",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "placeholder",
+        "label": "Placeholder Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "caption",
+        "label": "Caption",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "vimeo",
     "fields": [
       {
         "component": "text",
