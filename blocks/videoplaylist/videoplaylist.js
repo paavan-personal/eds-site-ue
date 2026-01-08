@@ -117,7 +117,7 @@ function createVideoContainers(row, link, placeholder) {
     const videoContainer = document.createElement('div');
     videoContainer.className = 'video-player';
 
-    const autoplay = block.classList.contains('autoplay');
+    const autoplay = row.classList.contains('autoplay');
     if (placeholder) {
         videoContainer.classList.add('placeholder');
         const wrapper = document.createElement('div');
