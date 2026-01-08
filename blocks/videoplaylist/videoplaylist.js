@@ -138,5 +138,5 @@ function createVideoContainers(row, link, placeholder) {
     }
 
     // Add video container to block
-    row.append(videoContainer);
+    row.replace(videoContainer);
 }
