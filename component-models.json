@@ -262,6 +262,12 @@
             "valueType": "string"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "testing",
+        "label": "Testing",
+        "valueType": "string"
       }
     ]
   },
