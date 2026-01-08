@@ -106,7 +106,7 @@ export default async function decorate(block) {
     let link = linkElement ? linkElement.href : null;
     let placeholder = placeholderElement || null;
     if(link && placeholder){
-        block.textContent = '';
+        row.innerHTML = '';
         block.dataset.embedLoaded = false;
         createVideoContainers(block, link, placeholder);
     }
