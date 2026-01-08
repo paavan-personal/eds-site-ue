@@ -114,29 +114,36 @@ export default async function decorate(block) {
  block.textContent = '';
  block.dataset.embedLoaded = false;
 
- const videoContainer = document.createElement('div');
-  videoContainer.className = 'video-player';
+ videoSlides.forEach(slide => {  
+  createVideoContainers(block, slide.link, slide.placeholder);
+ });
 
-  const autoplay = block.classList.contains('autoplay');
-  if (placeholder) {
-    videoContainer.classList.add('placeholder');
-    const wrapper = document.createElement('div');
-    wrapper.className = 'video-placeholder';
-    wrapper.append(placeholder);
+}
 
-    if (!autoplay) {
-      wrapper.insertAdjacentHTML(
-        'beforeend',
-        '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>',
-      );
-      wrapper.addEventListener('click', () => {
-        wrapper.remove();
-        loadVideoEmbed(videoContainer, link, true, false);
-      });
+function createVideoContainers(block, link, placeholder) {
+    const videoContainer = document.createElement('div');
+    videoContainer.className = 'video-player';
+
+    const autoplay = block.classList.contains('autoplay');
+    if (placeholder) {
+        videoContainer.classList.add('placeholder');
+        const wrapper = document.createElement('div');
+        wrapper.className = 'video-placeholder';
+        wrapper.append(placeholder);
+
+        if (!autoplay) {
+            wrapper.insertAdjacentHTML(
+                'beforeend',
+                '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>'
+            );
+            wrapper.addEventListener('click', () => {
+                wrapper.remove();
+                loadVideoEmbed(videoContainer, link, true, false);
+            });
+        }
+        videoContainer.append(wrapper);
     }
-    videoContainer.append(wrapper);
-  }
 
-  // Add video container to block
-  block.append(videoContainer);
+    // Add video container to block
+    block.append(videoContainer);
 }
