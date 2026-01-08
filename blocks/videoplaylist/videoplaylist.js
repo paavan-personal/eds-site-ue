@@ -1,13 +1,16 @@
 export default async function decorate(block) {
  const rows = [...block.children];
+ const videoSlides = [];
  rows.forEach(row => {
-    const cells = [...row.children];
-    if (cells.length === 0) return;
-
-    const cell = cells[0];
-    const cellContent = cell.textContent.trim();
-    const linkElement = cell.querySelector('a');
-    const pictureElement = cell.querySelector('picture');
-    console.log(cellContent,linkElement,pictureElement);
+    const linkElement = row.querySelector('a');
+    const placeholderElement = row.querySelector('picture');
+    videoSlides.push({
+      link: linkElement ? linkElement.href : '',
+      placeholder: placeholderElement || null,
+    });
  });
+
+ console.log(videoSlides);
+ block.textContent = '';
+ block.dataset.embedLoaded = false;
 }
