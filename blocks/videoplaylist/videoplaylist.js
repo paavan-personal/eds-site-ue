@@ -3,8 +3,7 @@ export default async function decorate(block) {
   rows.forEach((row, index) => {
     const cells = [...row.children];
     if (cells.length === 0) return;
-    const cell = cells[index];
-    const cellContent = cell.textContent.trim();
-    console.log(cellContent);
+    const cell = cells[0];
+    console.log(index + "" +cell);
   });
 }
