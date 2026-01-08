@@ -108,12 +108,12 @@ export default async function decorate(block) {
     if(link && placeholder){
         row.innerHTML = '';
         block.dataset.embedLoaded = false;
-        createVideoContainers(block, link, placeholder);
+        createVideoContainers(row, link, placeholder);
     }
  });
 }
 
-function createVideoContainers(block, link, placeholder) {
+function createVideoContainers(row, link, placeholder) {
     const videoContainer = document.createElement('div');
     videoContainer.className = 'video-player';
 
@@ -138,5 +138,5 @@ function createVideoContainers(block, link, placeholder) {
     }
 
     // Add video container to block
-    block.append(videoContainer);
+    row.append(videoContainer);
 }
