@@ -101,7 +101,7 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
 export default async function decorate(block) {
  const rows = [...block.children];
  const videoSlides = [];
- rows.forEach(row => {
+ rows.children.forEach(row => {
     const linkElement = row.querySelector('a');
     const placeholderElement = row.querySelector('picture');
     videoSlides.push({
