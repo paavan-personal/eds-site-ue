@@ -239,34 +239,18 @@
     ]
   },
   {
-    "id": "videoplaylist",
+    "id": "videoslide",
     "fields": [
       {
-        "component": "container",
-        "name": "container",
-        "label": "Video List details",
-        "valueType": "string",
-        "collapsible": true,
-        "multi": true,
-        "fields": [
-          {
-            "component": "text",
-            "name": "videoUrl",
-            "label": "Video URL",
-            "valueType": "string"
-          },
-          {
-            "component": "reference",
-            "name": "placeholder1",
-            "label": "Placeholder Image",
-            "valueType": "string"
-          }
-        ]
+        "component": "text",
+        "name": "videoUrl",
+        "label": "Video URL",
+        "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "testing",
-        "label": "Testing",
+        "component": "reference",
+        "name": "placeholder",
+        "label": "Placeholder Image",
         "valueType": "string"
       }
     ]

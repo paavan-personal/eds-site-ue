@@ -173,15 +173,31 @@
           }
         },
         {
-          "title": "videoplaylist",
+          "title": "Videoplaylist",
           "id": "videoplaylist",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "videoplaylist",
-                  "model": "videoplaylist"
+                  "name": "Videoplaylist",
+                  "model": "videoplaylist",
+                  "filter": "videoplaylist"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Videoslide",
+          "id": "videoslide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Videoslide",
+                  "model": "videoslide"
                 }
               }
             }
