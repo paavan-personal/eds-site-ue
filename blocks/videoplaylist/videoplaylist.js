@@ -109,6 +109,7 @@ export default async function decorate(block) {
         row.innerHTML = '';
         block.dataset.embedLoaded = false;
         createVideoContainers(row, link, placeholder);
+        createVideoContainers(row, link, placeholder);
     }
  });
 }
@@ -138,5 +139,5 @@ function createVideoContainers(row, link, placeholder) {
     }
 
     // Add video container to block
-    row.replace(videoContainer);
+    row.append(videoContainer);
 }
