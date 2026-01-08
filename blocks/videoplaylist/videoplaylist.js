@@ -115,7 +115,7 @@ export default async function decorate(block) {
  });
 
  console.log(videoSlides);
- block.textContent = '';
+ //block.textContent = '';
  block.dataset.embedLoaded = false;
 
  videoSlides.forEach(slide => {  
