@@ -100,28 +100,17 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
 
 export default async function decorate(block) {
  const rows = [...block.children];
- const videoSlides = [];
  rows.forEach(row => {
     const linkElement = row.querySelector('a');
     const placeholderElement = row.querySelector('picture');
     let link = linkElement ? linkElement.href : null;
     let placeholder = placeholderElement || null;
     if(link && placeholder){
-        videoSlides.push({
-        link: linkElement ? linkElement.href : '',
-        placeholder: placeholderElement || null,
-        });
+        block.textContent = '';
+        block.dataset.embedLoaded = false;
+        createVideoContainers(block, link, placeholder);
     }
  });
-
- console.log(videoSlides);
- //block.textContent = '';
- block.dataset.embedLoaded = false;
-
- videoSlides.forEach(slide => {  
-  createVideoContainers(block, slide.link, slide.placeholder);
- });
-
 }
 
 function createVideoContainers(block, link, placeholder) {
