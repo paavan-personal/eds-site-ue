@@ -100,13 +100,8 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
 
 export default async function decorate(block) {
  const rows = [...block.children];
- const wrapperDiv = document.createElement('div');
- wrapperDiv.classList.add("slider-wrapper");
- const videoDiv = document.createElement('div');
- videoDiv.classList.add("slider-for");
- const naveDiv = document.createElement('div');
- naveDiv.classList.add("slider-nav");
- naveDiv.innerHTML = '<div><h3>1</h3></div><div><h3>2</h3></div><div><h3>3</h3></div><div><h3>4</h3></div>';
+ const videowrapper = document.createElement('div');
+ videowrapper.classList.add('slider-for');
  rows.forEach(row => {
     const linkElement = row.querySelector('a');
     const placeholderElement = row.querySelector('picture');
@@ -115,16 +110,17 @@ export default async function decorate(block) {
     if(link && placeholder){
         row.innerHTML = '';
         block.dataset.embedLoaded = false;
-        createVideoContainers(row, link, placeholder, videoDiv);
+        createVideoContainers(row, link, placeholder, videowrapper);
     }
  });
- 
- wrapperDiv.append(videoDiv);
- wrapperDiv.append(naveDiv);
- block.replaceChildren(wrapperDiv);
+ const navwrapper = document.createElement('div');
+ navwrapper.classList.add('slider-nav');
+ navwrapper.innerHTML = '<div><h3>1</h3></div><div><h3>2</h3></div><div><h3>3</h3></div><div><h3>4</h3></div>';
+ block.append(videowrapper);
+ block.append(navwrapper);
 }
 
-function createVideoContainers(row, link, placeholder, videoDiv) {
+function createVideoContainers(row, link, placeholder, videowrapper) {
     const videoContainer = document.createElement('div');
     videoContainer.className = 'video-player';
 
@@ -149,5 +145,5 @@ function createVideoContainers(row, link, placeholder, videoDiv) {
     }
 
     // Add video container to block
-    videoDiv.append(videoContainer);
+    videowrapper.append(videoContainer);
 }
