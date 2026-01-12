@@ -1,9 +1,33 @@
 
-/* =========================================================
-   Videoplaylist (EDS/Franklin) — Slick Carousel (Block CSS)
-   Assumption: slick.css is already loaded globally.
-   ========================================================= */
 @charset 'UTF-8';
+
+/* --- Title Navigation Slider --- */
+.vp-slider-nav {
+  margin-top: 12px;
+}
+
+.vp-slider-nav .vp-navitem {
+  padding: 10px 12px;
+  margin: 0 6px;
+  border-radius: 10px;
+  background: rgba(18, 18, 20, 0.55);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.9);
+  font: 600 13px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vp-slider-nav .slick-current .vp-navitem,
+.vp-slider-nav .slick-center .vp-navitem {
+  background: rgba(110, 86, 255, 0.28);
+  border-color: rgba(110, 86, 255, 0.45);
+}
+
 
 .videoplaylist.vp {
   --vp-max: 1120px;
@@ -93,62 +117,6 @@
   width: 100%;
   height: 100%;
   border: 0;
-}
-
-/* ---------------------------------------------------------
-   Play button overlay
-   --------------------------------------------------------- */
-
-.vp-play {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 74px;
-  height: 74px;
-  border-radius: 999px;
-  border: 0;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
-  display: grid;
-  place-items: center;
-  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease, opacity 120ms ease;
-  z-index: 2;
-}
-
-.vp-play:hover {
-  transform: translate(-50%, -50%) scale(1.05);
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.44);
-}
-
-.vp-play:active {
-  transform: translate(-50%, -50%) scale(0.98);
-}
-
-/* Visible focus for accessibility */
-.vp-play:focus-visible {
-  outline: 3px solid rgba(110, 86, 255, 0.8);
-  outline-offset: 3px;
-}
-
-.vp-play-icon {
-  width: 0;
-  height: 0;
-  border-left: 18px solid #fff;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  margin-left: 3px;
-  filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));
-}
-
-/* When playing, hide the play button */
-.vp-slide.is-playing .vp-play {
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* ---------------------------------------------------------
