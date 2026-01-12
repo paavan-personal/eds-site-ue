@@ -248,9 +248,9 @@
         "valueType": "string"
       },
       {
-        "component": "reference",
-        "name": "placeholder",
-        "label": "Placeholder Image",
+        "component": "text",
+        "name": "title",
+        "label": "Title",
         "valueType": "string"
       }
     ]
