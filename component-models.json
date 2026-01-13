@@ -136,6 +136,14 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Dark Background Round",
+            "value": "dark-green"
+          },
+          {
+            "name": "Light Background Square",
+            "value": "light-green"
           }
         ]
       }
