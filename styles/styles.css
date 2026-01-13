@@ -255,3 +255,18 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+
+/* Dark Green style */
+main .section.dark-green {
+  background-color: #0E4343;
+  color:#ffffff;
+  border-radius: 48px; /* rounded corners */
+}
+
+/* Light Green style */
+main .section.light-green {
+  background-color: #efebec;
+  color: #0E4343; 
+  border-radius: 0; /* square corners */
+}
