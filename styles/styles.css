@@ -18,6 +18,8 @@
   --text-color: #131313;
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
+  --dark-green: #0E4343;
+  --light-grey: #efebec;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -259,14 +261,16 @@ main .section.highlight {
 
 /* Dark Green style */
 main .section.dark-green {
-  background-color: #0E4343;
+  background-color: var(--dark-green);
   color:#ffffff;
   border-radius: 48px; /* rounded corners */
+  padding-block: 8px;
 }
 
 /* Light Green style */
 main .section.light-green {
-  background-color: #efebec;
-  color: #0E4343; 
-  border-radius: 0; /* square corners */
+  background-color: var(--light-grey);
+  color: var(--dark-green); 
+  border-radius: 0;
+  padding-block: 8px;
 }
