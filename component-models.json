@@ -191,7 +191,7 @@
     "id": "footersection",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "name": "bg-image",
         "label": "Background Image",
         "description": "The label shown for this section in the Content Tree"
