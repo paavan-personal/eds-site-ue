@@ -128,6 +128,20 @@
           }
         },
         {
+          "title": "Footer Section",
+          "id": "footersection",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "model": "footersection"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Fragment",
           "id": "fragment",
           "plugins": {

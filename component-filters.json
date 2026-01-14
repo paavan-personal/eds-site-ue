@@ -40,6 +40,16 @@
     ]
   },
   {
+    "id": "footersection",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "columns"
+    ]
+  },
+  {
     "id": "videoplaylist",
     "components": [
       "videoslide"
