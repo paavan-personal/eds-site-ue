@@ -146,6 +146,12 @@
             "value": "light-green"
           }
         ]
+      },
+      {
+        "component": "reference",
+        "name": "bg-image",
+        "label": "Background Image",
+        "description": "Optional background image for the section"
       }
     ]
   },
@@ -184,17 +190,6 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "footersection",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "bg-image",
-        "label": "Background Image",
-        "description": "The label shown for this section in the Content Tree"
       }
     ]
   },
