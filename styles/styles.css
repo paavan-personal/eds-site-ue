@@ -271,6 +271,11 @@ main .section.dark-green {
 main .section.light-green {
   background-color: var(--light-grey);
   color: var(--dark-green); 
-  border-radius: 0;
+  border-radius: 0; /* square corners */
   padding-block: 8px;
+}
+
+.footer-wrapper .footer{
+  background-image: url(/content/dam/paavan-eds-site/footer.webp);
+  background-position: center center;
 }
