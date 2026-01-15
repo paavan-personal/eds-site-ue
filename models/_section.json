@@ -48,7 +48,7 @@
           "component": "reference",
           "name": "bg-image",
           "label": "Background Image",
-          "description": "Optional background image for the section"
+          "description": "Background image for only footer section"
         }
       ]
     }
