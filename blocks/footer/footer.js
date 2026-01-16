@@ -5,8 +5,8 @@ function selectRelevantButton(footer) {
   const isHCP = sessionStorage.getItem("isHCP") === "true";
 
   // Select the buttons by their anchor title (most reliable)
-  const hcpLink = footer.querySelector('a.button[title="Healthcare Site"]');
-  const patientLink = footer.querySelector('a.button[title="Patient Site"]');
+  const hcpLink = footer.querySelector('a.revmed[title="Healthcare Site"]');
+  const patientLink = footer.querySelector('a.revmed[title="Patient Site"]');
 
   if (isHCP) {
     // Remove Healthcare Site button
