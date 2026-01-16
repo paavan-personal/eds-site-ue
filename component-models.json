@@ -152,6 +152,12 @@
         "name": "bg-image",
         "label": "Background Image",
         "description": "Background image for only footer section"
+      },
+      {
+        "component": "text",
+        "name": "identifier",
+        "label": "ID",
+        "description": "A unique identifier for this section to be used for in-page links"
       }
     ]
   },
