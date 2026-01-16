@@ -531,6 +531,12 @@ function decorateSections(main) {
           section.dataset[toCamelCase(key)] = meta[key];
         }
       });
+
+      const identifier = section.dataset.identifier;
+      if(identifier){
+        section.id = identifier;
+      }
+
       sectionMeta.parentNode.remove();
     }
   });
