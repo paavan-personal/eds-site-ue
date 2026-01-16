@@ -436,8 +436,9 @@ function decorateButtons(element) {
       const twoup = a.parentElement.parentElement;
       if (!a.querySelector('img')) {
         if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
-          a.className = 'revmed'; // default
+          a.className = 'revmed'; // revmed
           up.classList.add('button-container');
+          twoup.classList.add('button-container');
         }
         if (
           up.childNodes.length === 1

@@ -40,7 +40,7 @@
           "label": "Type",
           "options": [
             {
-              "name": "default",
+              "name": "revmed",
               "value": "revmed"
             },
             {
