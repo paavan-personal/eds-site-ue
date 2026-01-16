@@ -105,7 +105,7 @@
         "options": [
           {
             "name": "default",
-            "value": ""
+            "value": "revmed"
           },
           {
             "name": "primary",
@@ -114,10 +114,6 @@
           {
             "name": "secondary",
             "value": "secondary"
-          },
-          {
-            "name": "revmed",
-            "value": "revmed"
           }
         ]
       },
