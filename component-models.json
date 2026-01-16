@@ -114,8 +114,18 @@
           {
             "name": "secondary",
             "value": "secondary"
+          },
+          {
+            "name": "revmed",
+            "value": "revmed"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "identifier",
+        "label": "ID",
+        "description": "A unique identifier for this button"
       }
     ]
   },
