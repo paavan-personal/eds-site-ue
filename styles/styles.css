@@ -20,6 +20,9 @@
   --link-hover-color: #1d3ecf;
   --dark-green: #0E4343;
   --light-grey: #efebec;
+  --primary: #0e4343;
+  --primary-hover: rgba(14, 67, 67, 0.9);
+  --ring: #3a9b54;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;

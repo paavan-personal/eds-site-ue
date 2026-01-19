@@ -1,9 +1,3 @@
-:root {
-  --primary: #0e4343;
-  --primary-hover: rgba(14, 67, 67, 0.9);
-  --ring: #3a9b54;
-}
-
 footer .footer>div {
   margin: auto;
   max-width: 1200px;
