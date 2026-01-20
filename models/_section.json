@@ -57,10 +57,19 @@
           "description": "A unique identifier for this section to be used for in-page links"
         },
         {
-          "component": "text",
-          "name": "Test",
-          "label": "Test",
-          "description": "A unique identifier for this section to be used for in-page links"
+          "id": "checkbox-group",
+          "fields": [
+            {
+              "component": "checkbox-group",
+              "label": "Checkbox Group",
+              "name": "checkbox",
+              "valueType": "string[]",
+              "options": [
+                { "name": "Option 1", "value": "option1" },
+                { "name": "Option 2", "value": "option2" }
+              ]
+            }
+          ]
         }
       ]
     }
