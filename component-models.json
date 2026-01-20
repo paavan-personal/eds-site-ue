@@ -164,6 +164,12 @@
         "name": "identifier",
         "label": "ID",
         "description": "A unique identifier for this section to be used for in-page links"
+      },
+      {
+        "component": "text",
+        "name": "Test",
+        "label": "Test",
+        "description": "A unique identifier for this section to be used for in-page links"
       }
     ]
   },
