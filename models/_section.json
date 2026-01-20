@@ -64,8 +64,8 @@
         },
         {
           "component": "boolean",
-          "name": "enableFeature",
-          "label": "Enable Feature",
+          "name": "expandable",
+          "label": "Expandable",
           "valueType": "boolean"
         }
       ]
