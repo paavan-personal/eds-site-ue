@@ -100,7 +100,7 @@ export default function decorate(block) {
   const totalCards = cards.length;
 
   function getSlidesToShow() {
-    if (window.innerWidth >= 1024) return 2;
+    if (window.innerWidth >= 768) return 2;
     return 1;
   }
 
@@ -110,9 +110,12 @@ export default function decorate(block) {
     currentIndex = Math.min(currentIndex, maxIndex);
 
     const gap = 24;
-    const cardWidth = track.offsetWidth / slidesToShow - (gap * (slidesToShow - 1)) / slidesToShow;
+    const wrapperWidth = wrapper.offsetWidth - 120; // Subtract padding for arrows
+    const cardWidth = (wrapperWidth - (gap * (slidesToShow - 1))) / slidesToShow;
 
     cards.forEach((card) => {
+      card.style.flex = `0 0 ${cardWidth}px`;
+      card.style.width = `${cardWidth}px`;
       card.style.minWidth = `${cardWidth}px`;
       card.style.maxWidth = `${cardWidth}px`;
     });

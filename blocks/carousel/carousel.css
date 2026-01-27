@@ -5,13 +5,14 @@
   align-items: center;
   gap: 16px;
   padding: 0 60px;
+  overflow: hidden;
 }
 
 .carousel-track {
   display: flex;
   gap: 24px;
-  overflow: hidden;
   transition: transform 0.4s ease;
+  width: 100%;
 }
 
 /* Card Styles */
