@@ -1,0 +1,84 @@
+{
+  "definitions": [
+    {
+      "title": "Carousel",
+      "id": "carousel",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Carousel",
+              "filter": "carousel"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Carousel Item",
+      "id": "carousel-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Carousel Item",
+              "model": "carousel-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "carousel-item",
+      "fields": [
+        {
+          "component": "richtext",
+          "name": "title",
+          "label": "Title & Description",
+          "valueType": "string",
+          "description": "Enter the card title (use bold) and description"
+        },
+        {
+          "component": "text",
+          "name": "status",
+          "label": "Status",
+          "valueType": "string",
+          "description": "e.g., Active, RECRUITING or Active, NOT RECRUITING"
+        },
+        {
+          "component": "text",
+          "name": "phase",
+          "label": "Phase",
+          "valueType": "string",
+          "description": "e.g., 3 (open-label), 1/2 (open-label)"
+        },
+        {
+          "component": "text",
+          "name": "conditions",
+          "label": "Medical Conditions",
+          "valueType": "string",
+          "description": "List of medical conditions"
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "valueType": "string",
+          "description": "Link to view more details"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "carousel",
+      "components": [
+        "carousel-item"
+      ]
+    }
+  ]
+}
