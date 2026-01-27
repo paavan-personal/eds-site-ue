@@ -199,42 +199,45 @@
     ]
   },
   {
-    "id": "carousel-slide",
+    "id": "slide",
     "fields": [
       {
-        "component": "richtext",
+        "component": "text",
         "name": "title",
-        "label": "Title & Description",
-        "valueType": "string",
-        "description": "Enter the card title (use bold) and description"
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
       },
       {
         "component": "text",
         "name": "status",
         "label": "Status",
         "valueType": "string",
-        "description": "e.g., Active, RECRUITING or Active, NOT RECRUITING"
+        "description": "e.g., Active, RECRUITING"
       },
       {
         "component": "text",
         "name": "phase",
         "label": "Phase",
         "valueType": "string",
-        "description": "e.g., 3 (open-label), 1/2 (open-label)"
+        "description": "e.g., 3 (open-label)"
       },
       {
         "component": "text",
         "name": "conditions",
         "label": "Medical Conditions",
-        "valueType": "string",
-        "description": "List of medical conditions"
+        "valueType": "string"
       },
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link",
-        "valueType": "string",
-        "description": "Link to view more details"
+        "label": "Link URL",
+        "valueType": "string"
       }
     ]
   },

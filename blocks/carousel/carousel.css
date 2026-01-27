@@ -1,323 +1,236 @@
-/* Carousel Block Styles - Replicating revmedclinicaltrials.com carousel */
-
-.carousel {
-  padding: 40px 0;
-  background-color: #f8f9fa;
-  overflow: hidden;
-}
-
+/* Carousel Container */
 .carousel-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 60px;
   position: relative;
   display: flex;
   align-items: center;
   gap: 16px;
+  padding: 0 60px;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.4s ease-in-out;
-  width: 100%;
+  gap: 24px;
   overflow: hidden;
+  transition: transform 0.4s ease;
 }
 
 /* Card Styles */
 .carousel-card {
-  flex: 0 0 calc(33.333% - 20px);
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgb(0 0 0 / 8%);
-  padding: 24px;
-  margin: 10px;
-  min-height: 380px;
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-sizing: border-box;
+  min-height: 380px;
 }
 
 .carousel-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgb(0 0 0 / 12%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* Card Header */
-.carousel-card-header {
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e9ecef;
+/* Progress Dots */
+.carousel-card-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
 }
 
+.carousel-card-dots .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #d1d5db;
+}
+
+.carousel-card-dots .dot.filled {
+  background: #047857;
+}
+
+/* Card Title */
 .carousel-card-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1a365d;
-  margin: 0 0 12px;
-  line-height: 1.3;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #047857;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
 }
 
-.carousel-card-title a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.carousel-card-title a:hover {
-  color: #2563eb;
-  text-decoration: underline;
-}
-
+/* Card Description */
 .carousel-card-description {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #4a5568;
-  margin: 0;
+  font-size: 0.95rem;
+  color: #1f2937;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  flex-grow: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.carousel-card-description p {
+  margin: 0;
+}
+
+/* Divider */
+.carousel-card-divider {
+  height: 4px;
+  background: linear-gradient(90deg, #047857 0%, #047857 60%, #d1d5db 60%, #d1d5db 100%);
+  margin-bottom: 16px;
+  border-radius: 2px;
 }
 
 /* Card Fields */
 .carousel-card-field {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
-.carousel-card-label {
-  font-size: 11px;
+.carousel-card-field .field-label {
+  display: block;
+  font-size: 0.7rem;
   font-weight: 600;
+  color: #047857;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #718096;
-  margin: 0 0 6px;
+  margin-bottom: 2px;
 }
 
-.carousel-card-value {
-  font-size: 14px;
-  color: #2d3748;
-  margin: 0;
-  line-height: 1.5;
+.carousel-card-field .field-value {
+  display: block;
+  font-size: 0.9rem;
+  color: #1f2937;
+  line-height: 1.4;
 }
 
-/* Status Indicator */
-.carousel-card-status {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+.carousel-card-field .status-recruiting {
+  color: #1f2937;
 }
 
-.carousel-card-status::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-right: 8px;
-  background-color: #a0aec0;
+.carousel-card-field .status-not-recruiting {
+  color: #dc2626;
 }
 
-.carousel-card-status.status-recruiting {
-  background-color: #c6f6d5;
-  color: #22543d;
-}
-
-.carousel-card-status.status-recruiting::before {
-  background-color: #38a169;
-}
-
-.carousel-card-status.status-not-recruiting {
-  background-color: #fed7d7;
-  color: #742a2a;
-}
-
-.carousel-card-status.status-not-recruiting::before {
-  background-color: #e53e3e;
-}
-
-/* Medical Conditions */
-.carousel-card-conditions {
-  flex-grow: 1;
-}
-
-.carousel-card-conditions .carousel-card-value {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Card Link */
+/* Card Link Overlay */
 .carousel-card-link {
-  display: inline-flex;
-  align-items: center;
-  margin-top: auto;
-  padding: 12px 24px;
-  background-color: #1a365d;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  justify-content: center;
-}
-
-.carousel-card-link:hover {
-  background-color: #2563eb;
-  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
 /* Navigation Arrows */
 .carousel-nav {
-  flex-shrink: 0;
-  background: #fff;
-  border: 2px solid #1a365d;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
   z-index: 10;
+  padding: 10px;
+  transition: opacity 0.2s;
 }
 
-.carousel-nav:hover:not(:disabled) {
-  background: #1a365d;
-  color: #fff;
-}
-
-.carousel-nav:disabled,
-.carousel-nav-disabled {
-  opacity: 0.5;
+.carousel-nav:disabled {
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
-.carousel-arrow-icon {
-  font-size: 18px;
-  font-weight: bold;
-  color: #1a365d;
+.carousel-prev {
+  left: 0;
+}
+
+.carousel-next {
+  right: 0;
+}
+
+.carousel-arrow {
+  font-size: 4rem;
+  color: #047857;
+  font-weight: 300;
   line-height: 1;
 }
 
-.carousel-nav:hover:not(:disabled) .carousel-arrow-icon {
-  color: #fff;
+.carousel-nav:hover:not(:disabled) .carousel-arrow {
+  color: #065f46;
 }
 
-.carousel-arrow-text {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+/* Progress Bar */
+.carousel-progress {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-bottom: 16px;
 }
 
-/* Focus states for accessibility */
-.carousel-nav:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
+.progress-bar {
+  width: 80px;
+  height: 4px;
+  background: #d1d5db;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-/* Responsive Styles */
-@media (width <= 1200px) {
+.progress-bar.active {
+  background: #1f2937;
+}
+
+.progress-bar:hover {
+  background: #9ca3af;
+}
+
+.progress-bar.active:hover {
+  background: #1f2937;
+}
+
+/* Block Background */
+.carousel-container {
+  background: #f3f4f6;
+  padding: 40px 0;
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
   .carousel-wrapper {
     padding: 0 50px;
   }
 
+  .carousel-arrow {
+    font-size: 3rem;
+  }
+
   .carousel-card {
-    flex: 0 0 calc(50% - 20px);
-    min-height: 350px;
+    min-height: 360px;
   }
 }
 
-@media (width <= 768px) {
-  .carousel {
-    padding: 30px 0;
-  }
-
+@media (max-width: 767px) {
   .carousel-wrapper {
     padding: 0 40px;
   }
 
+  .carousel-arrow {
+    font-size: 2.5rem;
+  }
+
   .carousel-card {
-    flex: 0 0 calc(100% - 20px);
-    min-height: auto;
     padding: 20px;
-    margin: 5px 10px;
+    min-height: 340px;
   }
 
   .carousel-card-title {
-    font-size: 16px;
+    font-size: 1.5rem;
   }
 
-  .carousel-nav {
-    width: 40px;
-    height: 40px;
-  }
-
-  .carousel-arrow-icon {
-    font-size: 16px;
-  }
-}
-
-@media (width <= 480px) {
-  .carousel-wrapper {
-    padding: 0 30px;
-  }
-
-  .carousel-card {
-    padding: 16px;
-  }
-
-  .carousel-card-header {
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-  }
-
-  .carousel-card-title {
-    font-size: 15px;
-    margin-bottom: 8px;
-  }
-
-  .carousel-card-description {
-    font-size: 13px;
-  }
-
-  .carousel-card-field {
-    margin-bottom: 12px;
-  }
-
-  .carousel-card-label {
-    font-size: 10px;
-  }
-
-  .carousel-card-value {
-    font-size: 13px;
-  }
-
-  .carousel-card-link {
-    padding: 10px 20px;
-    font-size: 13px;
-  }
-
-  .carousel-nav {
-    width: 36px;
-    height: 36px;
-  }
-
-  .carousel-arrow-icon {
-    font-size: 14px;
+  .progress-bar {
+    width: 60px;
   }
 }
