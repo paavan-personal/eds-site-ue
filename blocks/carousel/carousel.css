@@ -1,237 +1,251 @@
 /* Carousel Container */
-.carousel-wrapper {
+.carousel {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 60px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 60px 0;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
+/* Viewport clips overflow - 80% width centered */
+.carousel-viewport {
+  overflow: visible;
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* Track holds all cards in a row */
 .carousel-track {
   display: flex;
-  gap: 24px;
-  transition: transform 0.4s ease;
-  width: 100%;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Card Styles */
+/* Each card takes 50% of viewport (40% of container = 2 cards in 80%) */
 .carousel-card {
+  flex: 0 0 50%;
+  min-width: 50%;
+  box-sizing: border-box;
+  padding: 0 12px;
+}
+
+/* Card inner wrapper */
+.carousel-card .card-inner {
   background: #fff;
-  border-radius: 8px;
-  padding: 24px 28px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  position: relative;
-  flex-shrink: 0;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  padding: 32px;
+  height: 100%;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-card:hover .card-inner {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Progress dots - styled like RevMed site */
+.card-progress {
   display: flex;
-  flex-direction: column;
-  min-height: 380px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
-.carousel-card:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
-/* Progress Dots */
-.carousel-card-dots {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-
-.carousel-card-dots .dot {
-  width: 16px;
-  height: 16px;
+.card-progress .dot {
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #00a651 0%, #7ab800 100%);
   border-radius: 50%;
-  background: #d1d5db;
 }
 
-.carousel-card-dots .dot.filled {
-  background: #047857;
+/* Title - matches RevMed green link style */
+.card-title {
+  color: #00a651;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  line-height: 1.4;
+  text-decoration: none;
+  display: block;
 }
 
-/* Card Title */
-.carousel-card-title {
-  font-size: 1.75rem;
+.card-title:hover {
+  text-decoration: underline;
+}
+
+/* Description - matches RevMed body text */
+.card-description {
+  color: #1a1a1a;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0 0 24px;
   font-weight: 400;
-  color: #047857;
-  margin: 0 0 12px 0;
-  line-height: 1.2;
 }
 
-/* Card Description */
-.carousel-card-description {
-  font-size: 0.95rem;
-  color: #1f2937;
-  line-height: 1.5;
-  margin-bottom: 16px;
-  flex-grow: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.carousel-card-description p {
+.card-description p {
   margin: 0;
 }
 
-/* Divider */
-.carousel-card-divider {
+/* Divider - gradient bar like RevMed */
+.card-divider {
   height: 4px;
-  background: linear-gradient(90deg, #047857 0%, #047857 60%, #d1d5db 60%, #d1d5db 100%);
-  margin-bottom: 16px;
+  background: linear-gradient(90deg, #00a651 0%, #7ab800 50%, #c4d600 100%);
+  margin-bottom: 24px;
   border-radius: 2px;
 }
 
-/* Card Fields */
-.carousel-card-field {
-  margin-bottom: 12px;
+/* Fields - styled like RevMed's STATUS/PHASE/CONDITIONS */
+.card-field {
+  margin-bottom: 16px;
 }
 
-.carousel-card-field .field-label {
+.field-label {
   display: block;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #047857;
+  font-size: 11px;
+  font-weight: 700;
+  color: #666;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 2px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
 }
 
-.carousel-card-field .field-value {
+.field-value {
   display: block;
-  font-size: 0.9rem;
-  color: #1f2937;
-  line-height: 1.4;
+  font-size: 15px;
+  color: #1a1a1a;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
-.carousel-card-field .status-recruiting {
-  color: #1f2937;
+/* Link - matches RevMed CTA style */
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #00a651;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 16px;
+  padding: 12px 0;
+  border-top: 1px solid #e5e5e5;
+  width: 100%;
 }
 
-.carousel-card-field .status-not-recruiting {
-  color: #dc2626;
+.card-link:hover {
+  color: #008c44;
 }
 
-/* Card Link Overlay */
-.carousel-card-link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
+.card-link .arrow {
+  font-size: 18px;
+  transition: transform 0.3s ease;
 }
 
-/* Navigation Arrows */
+.card-link:hover .arrow {
+  transform: translateX(6px);
+}
+
+/* Navigation buttons - green background panels like RevMed */
 .carousel-nav {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 10;
-  padding: 10px;
-  transition: opacity 0.2s;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
 }
 
-.carousel-nav:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.carousel-btn {
+  width: 10%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background: #00a651;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 300;
+  cursor: pointer;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background: #008c44;
+}
+
+.carousel-btn:active {
+  background: #007a3d;
 }
 
 .carousel-prev {
-  left: 0;
+  border-radius: 0 16px 16px 0;
 }
 
 .carousel-next {
-  right: 0;
-}
-
-.carousel-arrow {
-  font-size: 4rem;
-  color: #047857;
-  font-weight: 300;
-  line-height: 1;
-}
-
-.carousel-nav:hover:not(:disabled) .carousel-arrow {
-  color: #065f46;
-}
-
-/* Progress Bar */
-.carousel-progress {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
-  padding-bottom: 16px;
-}
-
-.progress-bar {
-  width: 80px;
-  height: 4px;
-  background: #d1d5db;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.progress-bar.active {
-  background: #1f2937;
-}
-
-.progress-bar:hover {
-  background: #9ca3af;
-}
-
-.progress-bar.active:hover {
-  background: #1f2937;
-}
-
-/* Block Background */
-.carousel-container {
-  background: #f3f4f6;
-  padding: 40px 0;
+  border-radius: 16px 0 0 16px;
 }
 
 /* Responsive */
-@media (max-width: 1023px) {
-  .carousel-wrapper {
-    padding: 0 50px;
-  }
-
-  .carousel-arrow {
-    font-size: 3rem;
+@media (max-width: 1200px) {
+  .carousel-viewport {
+    width: 85%;
   }
 
   .carousel-card {
-    min-height: 360px;
+    flex: 0 0 50%;
+    min-width: 50%;
+  }
+
+  .carousel-btn {
+    width: 7.5%;
   }
 }
 
-@media (max-width: 767px) {
-  .carousel-wrapper {
-    padding: 0 40px;
+@media (max-width: 768px) {
+  .carousel {
+    padding: 40px 0;
   }
 
-  .carousel-arrow {
-    font-size: 2.5rem;
+  .carousel-viewport {
+    width: 70%;
   }
 
   .carousel-card {
-    padding: 20px;
-    min-height: 340px;
+    flex: 0 0 100%;
+    min-width: 100%;
+    padding: 0 8px;
   }
 
-  .carousel-card-title {
-    font-size: 1.5rem;
+  .carousel-card .card-inner {
+    padding: 24px;
   }
 
-  .progress-bar {
-    width: 60px;
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-description {
+    font-size: 14px;
+  }
+
+  .carousel-btn {
+    width: 15%;
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-viewport {
+    width: 80%;
+  }
+
+  .carousel-btn {
+    width: 10%;
+    font-size: 24px;
   }
 }

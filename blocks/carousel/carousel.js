@@ -4,53 +4,59 @@ function createCard(row) {
   const card = document.createElement('div');
   card.className = 'carousel-card';
 
-  // Get content from row divs
+  // Move AEM instrumentation for Universal Editor support
+  moveInstrumentation(row, card);
+
   const cols = [...row.children];
 
-  // Extract data from columns
+  // Column 0: Title
   const title = cols[0]?.textContent?.trim() || '';
-  const description = cols[1]?.innerHTML || '';
+
+  // Column 1: Description (richtext)
+  const descriptionHtml = cols[1]?.innerHTML || '';
+
+  // Column 2: Status
   const status = cols[2]?.textContent?.trim() || '';
+
+  // Column 3: Phase
   const phase = cols[3]?.textContent?.trim() || '';
+
+  // Column 4: Medical Conditions
   const conditions = cols[4]?.textContent?.trim() || '';
+
+  // Column 5: Link
   const linkEl = cols[5]?.querySelector('a');
-  const link = linkEl?.href || '#';
-
-  // Determine if recruiting
-  const isRecruiting = status.toLowerCase().includes('recruiting')
-    && !status.toLowerCase().includes('not recruiting');
-
-  // Create progress dots
-  const dotsHtml = `
-    <div class="carousel-card-dots">
-      <span class="dot filled"></span>
-      <span class="dot filled"></span>
-      <span class="dot filled"></span>
-      <span class="dot ${isRecruiting ? 'filled' : ''}"></span>
-    </div>
-  `;
+  const linkHref = linkEl?.href || '#';
 
   card.innerHTML = `
-    ${dotsHtml}
-    <h3 class="carousel-card-title">${title}</h3>
-    <div class="carousel-card-description">${description}</div>
-    <div class="carousel-card-divider"></div>
-    <div class="carousel-card-field">
-      <span class="field-label">STATUS</span>
-      <span class="field-value ${isRecruiting ? 'status-recruiting' : 'status-not-recruiting'}">${status}</span>
+    <div class="card-inner">
+      <div class="card-progress">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+      <a href="${linkHref}" class="card-title">${title}</a>
+      <div class="card-description">${descriptionHtml}</div>
+      <div class="card-divider"></div>
+      <div class="card-field">
+        <span class="field-label">STATUS</span>
+        <span class="field-value">${status}</span>
+      </div>
+      <div class="card-field">
+        <span class="field-label">PHASE</span>
+        <span class="field-value">${phase}</span>
+      </div>
+      <div class="card-field">
+        <span class="field-label">MEDICAL CONDITIONS</span>
+        <span class="field-value">${conditions}</span>
+      </div>
+      <a href="${linkHref}" class="card-link">
+        View trial details
+        <span class="arrow">→</span>
+      </a>
     </div>
-    <div class="carousel-card-field">
-      <span class="field-label">PHASE</span>
-      <span class="field-value">${phase}</span>
-    </div>
-    <div class="carousel-card-field">
-      <span class="field-label">MEDICAL CONDITIONS</span>
-      <span class="field-value">${conditions}</span>
-    </div>
-    <a href="${link}" class="carousel-card-link" aria-label="View details for ${title}"></a>
   `;
 
-  moveInstrumentation(row, card);
   return card;
 }
 
@@ -58,129 +64,97 @@ export default function decorate(block) {
   const rows = [...block.children];
   if (rows.length === 0) return;
 
-  // Create carousel structure
-  const wrapper = document.createElement('div');
-  wrapper.className = 'carousel-wrapper';
+  // Build cards
+  const cards = rows.map((row) => createCard(row));
 
+  // Clear block and build structure
+  block.textContent = '';
+
+  // Create track
   const track = document.createElement('div');
   track.className = 'carousel-track';
+  cards.forEach((card) => track.appendChild(card));
 
-  // Create cards from rows
-  rows.forEach((row) => {
-    const card = createCard(row);
-    track.appendChild(card);
-  });
+  // Create viewport
+  const viewport = document.createElement('div');
+  viewport.className = 'carousel-viewport';
+  viewport.appendChild(track);
 
-  // Navigation arrows
+  // Create nav buttons
   const prevBtn = document.createElement('button');
-  prevBtn.className = 'carousel-nav carousel-prev';
-  prevBtn.innerHTML = '<span class="carousel-arrow">&#8249;</span>';
+  prevBtn.className = 'carousel-btn carousel-prev';
   prevBtn.setAttribute('aria-label', 'Previous slide');
+  prevBtn.innerHTML = '&#10094;';
 
   const nextBtn = document.createElement('button');
-  nextBtn.className = 'carousel-nav carousel-next';
-  nextBtn.innerHTML = '<span class="carousel-arrow">&#8250;</span>';
+  nextBtn.className = 'carousel-btn carousel-next';
   nextBtn.setAttribute('aria-label', 'Next slide');
+  nextBtn.innerHTML = '&#10095;';
 
-  // Progress indicators
-  const progress = document.createElement('div');
-  progress.className = 'carousel-progress';
+  // Navigation container
+  const nav = document.createElement('div');
+  nav.className = 'carousel-nav';
+  nav.appendChild(prevBtn);
+  nav.appendChild(nextBtn);
 
-  wrapper.appendChild(prevBtn);
-  wrapper.appendChild(track);
-  wrapper.appendChild(nextBtn);
+  // Append to block
+  block.appendChild(viewport);
+  block.appendChild(nav);
 
-  block.textContent = '';
-  block.appendChild(wrapper);
-  block.appendChild(progress);
-
-  // Carousel logic
+  // State
   let currentIndex = 0;
-  const cards = track.querySelectorAll('.carousel-card');
   const totalCards = cards.length;
+  const cardWidth = 50; // percentage of viewport (each card is 50% of the 80% viewport)
+  const maxIndex = totalCards - 1; // can navigate to last index
 
-  function getSlidesToShow() {
-    if (window.innerWidth >= 768) return 2;
-    return 1;
-  }
+  // Update position - different logic for first/last vs middle positions
+  function updatePosition() {
+    let offset;
 
-  function updateCarousel() {
-    const slidesToShow = getSlidesToShow();
-    const maxIndex = Math.max(0, totalCards - slidesToShow);
-    currentIndex = Math.min(currentIndex, maxIndex);
-
-    const gap = 24;
-    const wrapperWidth = wrapper.offsetWidth - 120; // Subtract padding for arrows
-    const cardWidth = (wrapperWidth - (gap * (slidesToShow - 1))) / slidesToShow;
-
-    cards.forEach((card) => {
-      card.style.flex = `0 0 ${cardWidth}px`;
-      card.style.width = `${cardWidth}px`;
-      card.style.minWidth = `${cardWidth}px`;
-      card.style.maxWidth = `${cardWidth}px`;
-    });
-
-    const offset = currentIndex * (cardWidth + gap);
-    track.style.transform = `translateX(-${offset}px)`;
-
-    // Update progress bar
-    const progressCount = maxIndex + 1;
-    progress.innerHTML = '';
-    for (let i = 0; i < progressCount; i += 1) {
-      const bar = document.createElement('div');
-      bar.className = `progress-bar ${i === currentIndex ? 'active' : ''}`;
-      bar.addEventListener('click', () => {
-        currentIndex = i;
-        updateCarousel();
-      });
-      progress.appendChild(bar);
+    if (currentIndex === 0) {
+      // First position: show first 2 cards fully, no peek
+      offset = 0;
+    } else if (currentIndex === maxIndex) {
+      // Last position: show last 2 cards fully, no peek
+      offset = (totalCards - 2) * cardWidth;
+    } else {
+      // Middle positions (1 to maxIndex-1): 
+      // Half of prev card | 1 full card centered | half of next card
+      // Center the current card: offset = (currentIndex * cardWidth) - 25%
+      offset = (currentIndex * cardWidth) - 25;
     }
 
-    // Update button states
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex >= maxIndex;
+    track.style.transform = `translateX(-${offset}%)`;
   }
 
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex -= 1;
-      updateCarousel();
-    }
-  });
-
-  nextBtn.addEventListener('click', () => {
-    const slidesToShow = getSlidesToShow();
-    const maxIndex = Math.max(0, totalCards - slidesToShow);
+  // Handlers
+  function goNext() {
     if (currentIndex < maxIndex) {
       currentIndex += 1;
-      updateCarousel();
+      updatePosition();
+      updateButtons();
     }
-  });
+  }
 
-  // Touch/swipe support
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  track.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-
-  track.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        nextBtn.click();
-      } else {
-        prevBtn.click();
-      }
+  function goPrev() {
+    if (currentIndex > 0) {
+      currentIndex -= 1;
+      updatePosition();
+      updateButtons();
     }
-  }, { passive: true });
+  }
 
-  // Initialize and handle resize
-  window.addEventListener('resize', () => {
-    updateCarousel();
-  });
+  // Event listeners
+  nextBtn.addEventListener('click', goNext);
+  prevBtn.addEventListener('click', goPrev);
 
-  updateCarousel();
+  // Update button visibility
+  function updateButtons() {
+    prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+    nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+  }
+
+  // Initialize
+  updatePosition();
+  updateButtons();
 }
