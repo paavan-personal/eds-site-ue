@@ -1,36 +1,6 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /**
- * Loads jQuery and Slick carousel library
- * @returns {Promise} Promise that resolves when both scripts are loaded
- */
-async function loadSlickDependencies() {
-  const jqueryLoaded = new Promise((resolve) => {
-    if (window.jQuery) {
-      resolve();
-      return;
-    }
-    const script = document.createElement('script');
-    script.src = `${window.hlx.codeBasePath}/scripts/jquery.min.js`;
-    script.onload = resolve;
-    document.head.appendChild(script);
-  });
-
-  await jqueryLoaded;
-
-  return new Promise((resolve) => {
-    if (window.jQuery.fn.slick) {
-      resolve();
-      return;
-    }
-    const script = document.createElement('script');
-    script.src = `${window.hlx.codeBasePath}/scripts/slick.min.js`;
-    script.onload = resolve;
-    document.head.appendChild(script);
-  });
-}
-
-/**
  * Creates a carousel card element from row data
  * @param {Element} row - The row element containing card data
  * @returns {Element} The card element
@@ -166,68 +136,146 @@ function createCard(row) {
 }
 
 /**
- * Initializes the Slick carousel
- * @param {Element} carouselContainer - The container element for the carousel
+ * Gets the number of slides to show based on viewport width
+ * @returns {number} Number of slides to display
  */
-function initSlickCarousel(carouselContainer) {
-  const $carousel = window.jQuery(carouselContainer);
+function getSlidesToShow() {
+  if (window.innerWidth <= 768) return 1;
+  if (window.innerWidth <= 1200) return 2;
+  return 3;
+}
 
-  $carousel.slick({
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: true,
-    prevArrow: '<button type="button" class="carousel-prev" aria-label="Previous slide"><span class="carousel-arrow-icon">&lt;</span><span class="carousel-arrow-text">Previous slide</span></button>',
-    nextArrow: '<button type="button" class="carousel-next" aria-label="Next slide"><span class="carousel-arrow-icon">&gt;</span><span class="carousel-arrow-text">Next slide</span></button>',
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+/**
+ * Updates the carousel position and navigation state
+ * @param {Object} carousel - Carousel state object
+ */
+function updateCarousel(carousel) {
+  const { track, cards, currentIndex, prevBtn, nextBtn } = carousel;
+  const slidesToShow = getSlidesToShow();
+  const maxIndex = Math.max(0, cards.length - slidesToShow);
+
+  // Clamp current index
+  carousel.currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+
+  // Calculate transform
+  const cardWidth = 100 / slidesToShow;
+  const translateX = -carousel.currentIndex * cardWidth;
+  track.style.transform = `translateX(${translateX}%)`;
+
+  // Update button states
+  prevBtn.disabled = carousel.currentIndex === 0;
+  nextBtn.disabled = carousel.currentIndex >= maxIndex;
+
+  prevBtn.classList.toggle('carousel-nav-disabled', carousel.currentIndex === 0);
+  nextBtn.classList.toggle('carousel-nav-disabled', carousel.currentIndex >= maxIndex);
+}
+
+/**
+ * Initializes the carousel functionality
+ * @param {Element} block - The carousel block element
+ * @param {Object} carousel - Carousel state object
+ */
+function initCarousel(block, carousel) {
+  const { prevBtn, nextBtn } = carousel;
+
+  // Previous button click
+  prevBtn.addEventListener('click', () => {
+    carousel.currentIndex -= 1;
+    updateCarousel(carousel);
   });
+
+  // Next button click
+  nextBtn.addEventListener('click', () => {
+    carousel.currentIndex += 1;
+    updateCarousel(carousel);
+  });
+
+  // Handle window resize
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      updateCarousel(carousel);
+    }, 100);
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  carousel.track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  carousel.track.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe left - next
+        carousel.currentIndex += 1;
+      } else {
+        // Swipe right - previous
+        carousel.currentIndex -= 1;
+      }
+      updateCarousel(carousel);
+    }
+  }, { passive: true });
+
+  // Initial update
+  updateCarousel(carousel);
 }
 
 /**
  * Decorates the carousel block
  * @param {Element} block - The block element
  */
-export default async function decorate(block) {
-  // Load dependencies
-  await loadSlickDependencies();
-
+export default function decorate(block) {
   // Create carousel structure
   const carouselWrapper = document.createElement('div');
   carouselWrapper.className = 'carousel-wrapper';
 
-  const carouselContainer = document.createElement('div');
-  carouselContainer.className = 'carousel-container';
+  const carouselTrack = document.createElement('div');
+  carouselTrack.className = 'carousel-track';
 
   // Process each row as a card
   const rows = [...block.children];
+  const cards = [];
+
   rows.forEach((row) => {
     const card = createCard(row);
-    carouselContainer.appendChild(card);
+    cards.push(card);
+    carouselTrack.appendChild(card);
   });
 
-  carouselWrapper.appendChild(carouselContainer);
+  // Create navigation buttons
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'carousel-nav carousel-prev';
+  prevBtn.setAttribute('aria-label', 'Previous slide');
+  prevBtn.innerHTML = '<span class="carousel-arrow-icon">&#10094;</span><span class="carousel-arrow-text">Previous slide</span>';
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'carousel-nav carousel-next';
+  nextBtn.setAttribute('aria-label', 'Next slide');
+  nextBtn.innerHTML = '<span class="carousel-arrow-icon">&#10095;</span><span class="carousel-arrow-text">Next slide</span>';
+
+  carouselWrapper.appendChild(prevBtn);
+  carouselWrapper.appendChild(carouselTrack);
+  carouselWrapper.appendChild(nextBtn);
 
   // Clear block and append new structure
   block.textContent = '';
   block.appendChild(carouselWrapper);
 
-  // Initialize Slick carousel
-  initSlickCarousel(carouselContainer);
+  // Initialize carousel
+  const carousel = {
+    track: carouselTrack,
+    cards,
+    currentIndex: 0,
+    prevBtn,
+    nextBtn,
+  };
+
+  initCarousel(block, carousel);
 }
