@@ -1,0 +1,53 @@
+.check-bullets {
+  max-width: 910px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.check-bullets-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.check-bullets-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.check-bullets-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+}
+
+.check-bullets-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.check-bullets-text {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #131313;
+  flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .check-bullets-list {
+    gap: 20px;
+  }
+
+  .check-bullets-text {
+    font-size: 16px;
+  }
+}

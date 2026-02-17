@@ -242,6 +242,18 @@
     ]
   },
   {
+    "id": "check-bullets",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Bullet Items (each paragraph becomes a bullet)",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
