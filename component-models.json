@@ -180,44 +180,6 @@
     ]
   },
   {
-    "id": "callouts",
-    "fields": [
-      {
-        "component": "text",
-        "name": "eyebrow",
-        "value": "",
-        "label": "Eyebrow Text",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "header",
-        "value": "",
-        "label": "Header",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "body",
-        "value": "",
-        "label": "Body Text",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "cta1",
-        "label": "CTA Button 1",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "cta2",
-        "label": "CTA Button 2",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "card",
     "fields": [
       {
