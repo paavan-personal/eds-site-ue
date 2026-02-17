@@ -242,19 +242,6 @@
     ]
   },
   {
-    "id": "check-bullets",
-    "fields": [
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Bullet Items",
-        "description": "Enter each bullet point as a separate paragraph. Each <p> tag will be converted to a bullet item with a checkmark icon.",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "columns",
     "fields": [
       {
